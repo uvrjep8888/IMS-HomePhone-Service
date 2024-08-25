@@ -19,6 +19,16 @@ class Subscriber_model extends CI_Model {
         return $query->row_array();  
     }
 
+
+    public function get_subscribers() {
+        $sql = "SELECT phoneNumber, username, password, domain, status , callForwardProvisioned,  callForwardDestination  FROM user 
+                LEFT JOIN information ON user.id = information.user_id 
+                LEFT JOIN features ON user.id = features.user_id" ;
+        $query = $this->db->query($sql); 
+
+        return $query->row_array();  
+    }
+
     public function add_subscriber($data){
         $this->db->trans_start();
         $user = array(
