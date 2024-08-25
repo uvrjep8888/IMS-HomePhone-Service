@@ -8,7 +8,7 @@ class Subscriber_model extends CI_Model {
         $this->load->database('imsphoneservices');
     }
 
-    // Fetch all subscribers
+ 
     public function get_subscriber($phoneNumber) {
         $sql = "SELECT phoneNumber, username, password, domain, status , callForwardProvisioned,  callForwardDestination  FROM user 
                 LEFT JOIN information ON user.id = information.user_id 
@@ -16,19 +16,19 @@ class Subscriber_model extends CI_Model {
                 WHERE phoneNumber = " . $phoneNumber;
         $query = $this->db->query($sql); 
 
-        return $query->row_array();  // Returns an array of subscriber objects
+        return $query->row_array();  
     }
 
 
-    // Update an existing subscriber
+  
     public function update_subscriber($id, $data) {
         $this->db->where('id', $id);
-        return $this->db->update('subscribers', $data);  // Returns true on success
+        return $this->db->update('subscribers', $data); 
     }
 
-    // Delete a subscriber
+ 
     public function delete_subscriber($id) {
         $this->db->where('id', $id);
-        return $this->db->delete('subscribers');  // Returns true on success
+        return $this->db->delete('subscribers'); 
     }
 }

@@ -7,10 +7,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Ims extends REST_Controller  {
 
-    public function __construct() {  // Correct the constructor name
-        parent::__construct();  // Correct the constructor name here as well
+    public function __construct() {  
+        parent::__construct(); 
         $this->load->database();
-        $this->load->model('Subscriber_model');  // Ensure this matches your model name
+        $this->load->model('Subscriber_model');  
     }
 
     public function index() {
@@ -19,7 +19,7 @@ class Ims extends REST_Controller  {
     }
 
     public function subscriber_get($phoneNumber){
-        $subscriber = $this->Subscriber_model->get_subscriber($phoneNumber);  // Access the model correctly\
+        $subscriber = $this->Subscriber_model->get_subscriber($phoneNumber); 
         
         // converting the value of status from booean to string
         if($subscriber['status'] == 1) $subscriber['status'] = 'active'; 
