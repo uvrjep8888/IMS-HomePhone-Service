@@ -39,4 +39,11 @@ class Ims extends REST_Controller  {
 
         echo json_encode($subscriber); 
     }
+
+    public function subscriber_post() {
+
+        $isSuccessfull = $this->Subscriber_model->add_subscriber($this->post()); 
+        
+        echo json_encode($isSuccessfull); 
+    }
 }
