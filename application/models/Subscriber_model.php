@@ -89,8 +89,21 @@ class Subscriber_model extends CI_Model {
     }
 
  
-    public function delete_subscriber($id) {
-        $this->db->where('id', $id);
-        return $this->db->delete('subscribers'); 
+    public function delete_subscriber($phoneNumber) {
+        $this->db->trans_start();
+        $this->db->where('phoneNumber', $phoneNumber);
+        $result = $this->db->get('user')->row_array(); 
+
+        $this->db->where('id', $result['id']);
+        $this->db->delete('user');
+
+        $this->db->where('user_id', $result['id']);
+        $this->db->delete('information');
+
+        $this->db->where('user_id', $result['id']);
+        $this->db->delete('features');
+
+        $this->db->trans_complete();
+        return  $this->db->affected_rows(); 
     }
 }
