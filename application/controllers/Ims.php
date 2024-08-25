@@ -18,8 +18,8 @@ class Ims extends REST_Controller  {
         echo APPPATH; 
     }
 
-    public function subscriber_get(){
-        $subscriber = $this->Subscriber_model->get_subscribers();  // Access the model correctly\
+    public function subscriber_get($phoneNumber){
+        $subscriber = $this->Subscriber_model->get_subscriber($phoneNumber);  // Access the model correctly\
         
         // converting the value of status from booean to string
         if($subscriber['status'] == 1) $subscriber['status'] = 'active'; 
