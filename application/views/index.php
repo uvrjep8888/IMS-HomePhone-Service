@@ -3,10 +3,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Bootstrap -->
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="bootstrap-3.3.5-dist/css/bootstrap.css"> -->
+        <!-- Bootstrap core CSS-->
+        <link href="<?php echo $base_url ?>assets/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom fonts for this template-->
+        <link href="<?php echo $base_url ?>assets/font/all.min.css" rel="stylesheet" type="text/css">
+
+            <link href="<?php echo $base_url ?>assets/fontawesome/css/fontawesome.min.css" rel="stylesheet">
+            <link href="<?php echo $base_url ?>assets/fontawesome/css/all.min.css" rel="stylesheet">
+
+            <script src="<?php echo $base_url ?>assets/js/jquery.js" type="text/javascript"></script>
+            <script src="<?php echo $base_url ?>assets/js/jquery.min.js" type="text/javascript"></script>
+            <script src="<?php echo $base_url ?>assets/js/ims.js" type="text/javascript"></script>
+
+            <script>  
+                var base_url  = "<?php echo base_url();?>";
+            </script>
+
+          
 
     <style>
         .navigation{
@@ -162,79 +176,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </div>
 
 
-<div class="form-container">
-    <div class="form-layer">
-        <div class="form-group">
-            <label for="phoneNumber">Phone Number:</label>
-            <input type="text" id="phoneNumber" name="phoneNumber" class="form-input" />
-        </div>
-        <div class="form-group">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" class="form-input" />
-        </div>
-        <div class="form-group">
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" class="form-input" />
-        </div>
-    </div>
-    
-    <div class="form-layer">
-        <div class="form-group">
-            <label for="domain">Domain:</label>
-            <input type="text" id="domain" name="domain" class="form-input" />
-        </div>
-        <div class="form-group">
-            <label for="status">Status:</label>
-            <input type="checkbox" id="status" name="status" class="form-checkbox" />
-        </div>
-        <div class="form-group">
-            <label for="provisioned">Provisioned:</label>
-            <input type="checkbox" id="provisioned" name="provisioned" class="form-checkbox" />
-        </div>
-        <div class="form-group">
-            <label for="destination">Destination:</label>
-            <input type="text" id="destination" name="destination" class="form-input" />
-        </div>
-    </div>
-</div>
-
-<div class="form-container">
-    <div class="form-layer">
-        <div class="form-group">
-            <label for="phoneNumber">Phone Number:</label>
-            <input type="text" id="phoneNumber" name="phoneNumber" class="form-input" />
-        </div>
-        <div class="form-group">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" class="form-input" />
-        </div>
-        <div class="form-group">
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" class="form-input" />
-        </div>
-    </div>
-    
-    <div class="form-layer">
-        <div class="form-group">
-            <label for="domain">Domain:</label>
-            <input type="text" id="domain" name="domain" class="form-input" />
-        </div>
-        <div class="form-group">
-            <label for="status">Status:</label>
-            <input type="checkbox" id="status" name="status" class="form-checkbox" />
-        </div>
-        <div class="form-group">
-            <label for="provisioned">Provisioned:</label>
-            <input type="checkbox" id="provisioned" name="provisioned" class="form-checkbox" />
-        </div>
-        <div class="form-group">
-            <label for="destination">Destination:</label>
-            <input type="text" id="destination" name="destination" class="form-input" />
-        </div>
-    </div>
-</div>
-
-
- 
+<div id="data"></div>
 </body>
 </html>

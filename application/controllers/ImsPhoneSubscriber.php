@@ -12,7 +12,13 @@ class ImsPhoneSubscriber extends CI_Controller  {
     }
 
     public function index() {
-        $this->load->view('index');
+        $data = array(
+			'base_url' => base_url(),
+			'site_url' => site_url(),
+		);
+
+        
+        $this->load->view('index', $data);
     }
 
 

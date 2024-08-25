@@ -41,25 +41,27 @@ class Ims extends REST_Controller  {
     }
 
     public function subscribers_get(){
-        $subscriber = $this->Subscriber_model->get_subscribers(); 
-        
-        // converting the value of status from booean to string
-        if($subscriber['status'] == 1) $subscriber['status'] = 'active'; 
-        else $subscriber['status'] = 'inactive'; 
+        $subscribers = $this->Subscriber_model->get_subscribers();
 
-        // converting the value of status from booean to string
-        if($subscriber['callForwardProvisioned'] == 1)   $features['callForwardNoReply']['provisioned'] = 'active'; 
-        else   $features['callForwardNoReply']['provisioned'] = 'inactive'; 
+        foreach ($subscribers as $subscriber) {
+            // converting the value of status from booean to string
+            if($subscriber['status'] == 1) $subscriber['status'] = 'active';
+            else $subscriber['status'] = 'inactive';
 
-        // merging it to the array 
-        $features['callForwardNoReply']['destination'] = $subscriber['callForwardDestination']; 
-        $subscriber['features'] = $features; 
+            // converting the value of status from booean to string
+            if($subscriber['callForwardProvisioned'] == 1)   $features['callForwardNoReply']['provisioned'] = 'active';
+            else   $features['callForwardNoReply']['provisioned'] = 'inactive';
 
-        // unset non necessary array key 
-        unset($subscriber['callForwardDestination']);
-        unset($subscriber['callForwardProvisioned']); 
+            // merging it to the array
+            $features['callForwardNoReply']['destination'] = $subscriber['callForwardDestination'];
+            $subscriber['features'] = $features;
 
-        echo json_encode($subscriber); 
+            // unset non necessary array key
+            unset($subscriber['callForwardDestination']);
+            unset($subscriber['callForwardProvisioned']);
+        }
+
+        echo json_encode($subscribers);
     }
 
     public function subscriber_post() {

@@ -26,7 +26,7 @@ class Subscriber_model extends CI_Model {
                 LEFT JOIN features ON user.id = features.user_id" ;
         $query = $this->db->query($sql); 
 
-        return $query->row_array();  
+        return $query->result_array();  
     }
 
     public function add_subscriber($data){
