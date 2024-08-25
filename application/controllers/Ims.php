@@ -18,7 +18,7 @@ class Ims extends REST_Controller  {
         echo APPPATH; 
     }
 
-    public function subscriber_get($phoneNumber){
+    public function subscriber_get( $phoneNumber ){
         $subscriber = $this->Subscriber_model->get_subscriber($phoneNumber); 
         
         // converting the value of status from booean to string
@@ -43,7 +43,37 @@ class Ims extends REST_Controller  {
     public function subscriber_post() {
 
         $isSuccessfull = $this->Subscriber_model->add_subscriber($this->post()); 
-        
         echo json_encode($isSuccessfull); 
+    }
+
+    private function raw_file_converter($raw_data){
+
+        $boundary = substr($raw_data, 0, strpos($raw_data, "\r\n"));
+
+        $parts = array_slice(explode($boundary, $raw_data), 1);
+
+        $data = [];
+
+        foreach ($parts as $part) {
+            if ($part == "--\r\n") break;
+            $part = trim($part);
+            $matches = [];
+            if (preg_match('/name=\"([^\"]*)\"/', $part, $matches)) {
+                $name = $matches[1];
+                $data[$name] = substr($part, strpos($part, "\r\n\r\n") + 4);
+            }
+        }
+
+        return $data;
+
+    }
+
+    public function subscriber_put($phoneNumber){
+    // this part is for fixing the data from form data
+    $raw_data = file_get_contents('php://input');
+
+    $data = $this->raw_file_converter($raw_data); 
+    $isSuccessfull = $this->Subscriber_model->update_subscriber($data, $phoneNumber); 
+    echo json_encode($isSuccessfull); 
     }
 }
