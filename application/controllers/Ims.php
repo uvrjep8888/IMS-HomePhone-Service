@@ -1,7 +1,11 @@
 <?php
+
+require APPPATH.'libraries/REST_Controller.php'; 
+use Restserver\Libraries\REST_Controller;
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Ims extends CI_Controller {
+
+class Ims extends REST_Controller  {
 
     public function __construct() {  // Correct the constructor name
         parent::__construct();  // Correct the constructor name here as well
@@ -11,9 +15,10 @@ class Ims extends CI_Controller {
 
     public function index() {
         echo 'Welcome to IMS Home Phone Subscriber Service';
+        echo APPPATH; 
     }
 
-    public function subscriber(){
+    public function subscriber_get(){
         $subscriber = $this->Subscriber_model->get_subscribers();  // Access the model correctly\
         
         // converting the value of status from booean to string
