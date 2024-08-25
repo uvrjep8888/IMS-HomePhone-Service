@@ -50,9 +50,42 @@ class Subscriber_model extends CI_Model {
 
     }
   
-    public function update_subscriber($id, $data) {
-        $this->db->where('id', $id);
-        return $this->db->update('subscribers', $data); 
+    public function update_subscriber($data, $phoneNumber ) {
+        $this->db->trans_start();
+
+        $this->db->where('phoneNumber', $phoneNumber);
+        $result = $this->db->get('user')->row_array(); 
+
+        $user = array(
+            'username' => $data['username'],
+            'password'  => $data['password'],
+            'phoneNumber'  => $data['phoneNumber']
+        );
+
+
+        $information = array(
+            'domain' => $data['domain'],
+            'status'  => $data['status'],
+        );
+
+        $features = array(
+            'callForwardProvisioned' => $data['provisioned'],
+            'callForwardDestination'  => $data['destination'],
+        );
+
+
+        $this->db->where('id', $result['id']);
+        $this->db->update('user', $user);
+
+        $this->db->where('user_id', $result['id']);
+        $this->db->update('information', $information);
+
+        $this->db->where('user_id', $result['id']);
+        $this->db->update('features', $features);
+
+
+        $this->db->trans_complete();
+		return $this->db->affected_rows();
     }
 
  
