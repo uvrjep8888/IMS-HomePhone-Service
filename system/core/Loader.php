@@ -51,18 +51,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class CI_Loader {
 
-	public $benchmark;
-	public $hooks;
-	public $config;
-	public $log;
-	public $utf8;
-	public $uri;
-	public $router;
-	public $output;
-	public $security;
-	public $input;
-	public $lang;
-	public $load;
+	// public $benchmark;
+	// public $hooks;
+	// public $config;
+	// public $log;
+	// public $utf8;
+	// public $uri;
+	// public $router;
+	// public $output;
+	// public $security;
+	// public $input;
+	// public $lang;
+	// public $load;
+	// public $db; 
 
 
 	// All these are set automatically. Don't mess with them.
