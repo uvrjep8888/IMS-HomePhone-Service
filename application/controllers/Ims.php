@@ -40,6 +40,30 @@ class Ims extends REST_Controller  {
         echo json_encode($subscriber); 
     }
 
+    public function subscribers_get(){
+        $subscribers = $this->Subscriber_model->get_subscribers();
+
+        foreach ($subscribers as $subscriber) {
+            // converting the value of status from booean to string
+            if($subscriber['status'] == 1) $subscriber['status'] = 'active';
+            else $subscriber['status'] = 'inactive';
+
+            // converting the value of status from booean to string
+            if($subscriber['callForwardProvisioned'] == 1)   $features['callForwardNoReply']['provisioned'] = 'active';
+            else   $features['callForwardNoReply']['provisioned'] = 'inactive';
+
+            // merging it to the array
+            $features['callForwardNoReply']['destination'] = $subscriber['callForwardDestination'];
+            $subscriber['features'] = $features;
+
+            // unset non necessary array key
+            unset($subscriber['callForwardDestination']);
+            unset($subscriber['callForwardProvisioned']);
+        }
+
+        echo json_encode($subscribers);
+    }
+
     public function subscriber_post() {
 
         $isSuccessfull = $this->Subscriber_model->add_subscriber($this->post()); 
@@ -69,11 +93,15 @@ class Ims extends REST_Controller  {
     }
 
     public function subscriber_put($phoneNumber){
-        // this part is for fixing the data from form data
-        $raw_data = file_get_contents('php://input');
 
-        $data = $this->raw_file_converter($raw_data); 
-        $isSuccessfull = $this->Subscriber_model->update_subscriber($data, $phoneNumber); 
+
+        
+        // this part is for fixing the data from form data
+        // $raw_data = file_get_contents('php://input');
+
+
+        // $data = $this->raw_file_converter($raw_data); 
+        $isSuccessfull = $this->Subscriber_model->update_subscriber($this->put(), $phoneNumber); 
         echo json_encode($isSuccessfull); 
     }
 
