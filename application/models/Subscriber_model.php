@@ -13,7 +13,7 @@ class Subscriber_model extends CI_Model {
         $sql = "SELECT phoneNumber, username, password, domain, status , callForwardProvisioned,  callForwardDestination  FROM user 
                 LEFT JOIN information ON user.id = information.user_id 
                 LEFT JOIN features ON user.id = features.user_id 
-                WHERE phoneNumber = " . $phoneNumber;
+                WHERE phoneNumber = " . $phoneNumber . " AND user.isDeleted = 0";
         $query = $this->db->query($sql); 
 
         return $query->row_array();  
@@ -23,7 +23,7 @@ class Subscriber_model extends CI_Model {
     public function get_subscribers() {
         $sql = "SELECT phoneNumber, username, password, domain, status , callForwardProvisioned,  callForwardDestination  FROM user 
                 LEFT JOIN information ON user.id = information.user_id 
-                LEFT JOIN features ON user.id = features.user_id" ;
+                LEFT JOIN features ON user.id = features.user_id WHERE user.isDeleted = 0"; 
         $query = $this->db->query($sql); 
 
         return $query->result_array();  
@@ -107,13 +107,11 @@ class Subscriber_model extends CI_Model {
         $result = $this->db->get('user')->row_array(); 
 
         $this->db->where('id', $result['id']);
-        $this->db->delete('user');
+        $this->db->update('user', array(
+            'isDeleted' => 1,
+        ));
 
-        $this->db->where('user_id', $result['id']);
-        $this->db->delete('information');
-
-        $this->db->where('user_id', $result['id']);
-        $this->db->delete('features');
+     
 
         $this->db->trans_complete();
         return  $this->db->affected_rows(); 

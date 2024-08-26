@@ -99,11 +99,14 @@ $(document).ready(function () {
 	$(".search-button").click(function () {
 		const phoneNumber = $(".search-input").val();
 		if (isNaN(Number(phoneNumber))) {
-			alert("Error");
+			alert("Please enter a valid Phone number");
 		}
 
 		if (phoneNumber == "") {
-			alert("Error");
+			alert(
+				"This field cannot be left blank. Please provide the required information."
+			);
+			location.reload();
 		}
 
 		$.ajax({
@@ -179,12 +182,24 @@ $(document).ready(function () {
 										value = ${data.features.callForwardNoReply.destination}
 									/>
 								</div>
+								<div>
+									<button class = "btn btn-success" id="update" data-id = ${
+										data.phoneNumber
+									}>Update</button>
+									<button class = "btn btn-danger" id="delete" data-id = ${
+										data.phoneNumber
+									}>Delete</button>
+								</div>
 							</div>
 						</div>`;
 				$("#data").append(html);
 			},
 			error: function (data) {
-				alert("error");
+				$("#data").html("");
+				const html = `<div class="form-container">
+							No Record Found! 
+						</div>`;
+				$("#data").append(html);
 			},
 			method: "GET",
 		});
@@ -225,6 +240,23 @@ $(document).ready(function () {
 			dataType: "json",
 			success: function (data) {
 				alert("Success");
+			},
+			error: function (data) {
+				alert("error : ", data);
+			},
+		});
+	});
+
+	$(document).on("click", "#delete", function () {
+		$.ajax({
+			url:
+				base_url +
+				"ims/subscriber/" +
+				$(this).closest(".form-container").find("#phoneNumber").val(),
+			method: "DELETE",
+			dataType: "json",
+			success: function (data) {
+				location.reload();
 			},
 			error: function (data) {
 				alert("error : ", data);
