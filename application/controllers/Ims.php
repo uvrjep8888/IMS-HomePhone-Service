@@ -19,7 +19,10 @@ class Ims extends REST_Controller  {
     }
 
 
-    
+    /*
+        NOTE ! 
+       I believe it’s inappropriate to include the plaintext password in the JSON response. To maintain security, I recommend avoiding this practice and instead implementing secure methods for handling passwords
+    */
     public function subscriber_get( $phoneNumber ){
         $subscriber = $this->Subscriber_model->get_subscriber($phoneNumber); 
         
