@@ -93,11 +93,15 @@ class Ims extends REST_Controller  {
     }
 
     public function subscriber_put($phoneNumber){
-        // this part is for fixing the data from form data
-        $raw_data = file_get_contents('php://input');
 
-        $data = $this->raw_file_converter($raw_data); 
-        $isSuccessfull = $this->Subscriber_model->update_subscriber($data, $phoneNumber); 
+
+        
+        // this part is for fixing the data from form data
+        // $raw_data = file_get_contents('php://input');
+
+
+        // $data = $this->raw_file_converter($raw_data); 
+        $isSuccessfull = $this->Subscriber_model->update_subscriber($this->put(), $phoneNumber); 
         echo json_encode($isSuccessfull); 
     }
 

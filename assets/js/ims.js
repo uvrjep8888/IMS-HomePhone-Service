@@ -19,6 +19,7 @@ $(document).ready(function () {
 									name="phoneNumber"
 									class="form-input"
 									value=${data.phoneNumber}
+									disabled = true
 								/>
 							</div>
 							<div class="form-group">
@@ -31,9 +32,6 @@ $(document).ready(function () {
 									value = ${data.username}
 								/>
 							</div>
-						</div>
-
-						<div class="form-layer">
 							<div class="form-group">
 								<label for="domain">Domain:</label>
 								<input
@@ -44,6 +42,10 @@ $(document).ready(function () {
 									value = ${data.domain}
 								/>
 							</div>
+						</div>
+
+						<div class="form-layer">
+							
 							<div class="form-group">
 								<label for="status">Status:</label>
 								<input
@@ -74,6 +76,14 @@ $(document).ready(function () {
 									value = ${data.callForwardDestination}
 								/>
 							</div>
+							<div>
+								<button class = "btn btn-success" id="update" data-id = ${
+									data.phoneNumber
+								}>Update</button>
+								<button class = "btn btn-danger" id="delete" data-id = ${
+									data.phoneNumber
+								}>Delete</button>
+							</div>
 						</div>
 					</div>`;
 			});
@@ -101,7 +111,6 @@ $(document).ready(function () {
 
 			dataType: "json",
 			success: function (data) {
-				console.log(data);
 				$("#data").html("");
 				const html = `<div class="form-container">
 							<div class="form-layer">
@@ -113,6 +122,7 @@ $(document).ready(function () {
 										name="phoneNumber"
 										class="form-input"
 										value=${data.phoneNumber}
+										disabled = true
 									/>
 								</div>
 								<div class="form-group">
@@ -125,9 +135,6 @@ $(document).ready(function () {
 										value = ${data.username}
 									/>
 								</div>
-							</div>
-
-							<div class="form-layer">
 								<div class="form-group">
 									<label for="domain">Domain:</label>
 									<input
@@ -138,13 +145,17 @@ $(document).ready(function () {
 										value = ${data.domain}
 									/>
 								</div>
+							</div>
+
+							<div class="form-layer">
+								
 								<div class="form-group">
 									<label for="status">Status:</label>
 									<input
 										type="checkbox"
 										id="status"
 										name="status"
-										class="form-checkbox"
+										class="form-checkbox" 
 										${data.status == 1 && "checked"}
 									/>
 								</div>
@@ -176,6 +187,48 @@ $(document).ready(function () {
 				alert("error");
 			},
 			method: "GET",
+		});
+	});
+
+	$(document).on("click", "#update", function () {
+		$.ajax({
+			url:
+				base_url +
+				"ims/subscriber/" +
+				$(this).closest(".form-container").find("#phoneNumber").val(),
+			method: "PUT",
+			data: {
+				phoneNumber: $(this)
+					.closest(".form-container")
+					.find("#phoneNumber")
+					.val(),
+				username: $(this).closest(".form-container").find("#username").val(),
+				password: "asd",
+				domain: $(this).closest(".form-container").find("#domain").val(),
+				status:
+					$(this).closest(".form-container").find("#status:checked").val() ==
+					"on"
+						? 1
+						: 0,
+				provisioned:
+					$(this)
+						.closest(".form-container")
+						.find("#provisioned:checked")
+						.val() == "on"
+						? 1
+						: 0,
+				destination: $(this)
+					.closest(".form-container")
+					.find("#destination")
+					.val(),
+			},
+			dataType: "json",
+			success: function (data) {
+				alert("Success");
+			},
+			error: function (data) {
+				alert("error : ", data);
+			},
 		});
 	});
 });

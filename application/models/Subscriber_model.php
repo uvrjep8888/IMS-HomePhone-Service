@@ -61,6 +61,8 @@ class Subscriber_model extends CI_Model {
     }
   
     public function update_subscriber($data, $phoneNumber ) {
+
+    
         $this->db->trans_start();
 
         $this->db->where('phoneNumber', $phoneNumber);
