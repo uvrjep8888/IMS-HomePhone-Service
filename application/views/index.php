@@ -28,9 +28,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <style>
         .navigation{
             color: #54595F;
-            font-size: 17px;
+            font-size: 20px;
             font-family: 'Arial';
             font-weight: 300; 
+            padding-left: 10px;
+            padding-top: 10px; 
         }
 
         .jumbotron {

@@ -1,11 +1,7 @@
 $(document).ready(function () {
 	$.ajax({
 		url: base_url + "/ims/subscribers",
-		// data: {
-		// 	event: event,
-		// 	addons: addons,
-		// 	// date:date
-		// },
+
 		dataType: "json",
 		success: function (data) {
 			const html = data.map((data, index) => {
